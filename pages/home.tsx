@@ -9,9 +9,10 @@ import { Patient } from "@/types";
 import { useEffect, useState } from "react";
 import ModalPatient from "@/components/ModalPatient";
 import { initialPatient } from "@/constants/InitialPatient";
+import Spinner from "@/components/common/Spinner";
 
 const Home = () => {
-  const { patientList } = usePatientList();
+  const { patientList, isLoading } = usePatientList();
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [currentPatient, setCurrentPatient] = useState<Patient>(initialPatient);
@@ -74,6 +75,7 @@ const Home = () => {
         </div>
         <Button text="Agregar paciente" onClick={() => setOpenModal(true)} />
       </div>
+      {isLoading && <Spinner />}
       <div className="grid grid-cols-3 gap-4">
         {patients.map((p: Patient) => (
           <PatientCard
